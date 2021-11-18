@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-          child: GetX<CounterController>(
+          child: GetBuilder<CounterController>(
         init: CounterController(),
         builder: (controller) {
           return Text(
