@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/models/orang.dart';
+import 'package:flutter_getx/controllers/counter_controller.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,23 +20,23 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  var orang = Orang(nama: "Rezki", umur: 21).obs;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Obx(() => Text(
-              "Nama saya ${orang.value.nama}",
-              style: TextStyle(fontSize: 35),
-            )),
-      ),
+          child: GetX<CounterController>(
+        init: CounterController(),
+        builder: (controller) {
+          return Text(
+            "Angka : ${controller.count}",
+            style: TextStyle(fontSize: 35),
+          );
+        },
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          orang.update((_) {
-            orang.value.nama = orang.value.nama.toString().toUpperCase();
-          });
+          Get.find<CounterController>().increment();
         },
       ),
     );
